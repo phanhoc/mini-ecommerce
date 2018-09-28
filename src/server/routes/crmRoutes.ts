@@ -1,17 +1,18 @@
 import {Request, Response, NextFunction} from "express";
 import { ContactController } from "../controllers/crmController";
+import * as path from 'path';
 
 export class Routes { 
     
     public contactController: ContactController = new ContactController() 
     
     public routes(app): void {   
-        
-        app.route('/')
+        app.get('*', (req, res) => res.sendFile(path.join('/home/hocpv/workingdir/node/mini-ecommerce/dist-client', 'index.html')));
+        // app.get('/:url', (req, res) => (res.redirect('http://localhost:3001/' + req.params.url)));
+        app.route('/api/getUsername')
         .get((req: Request, res: Response) => {            
-            res.status(200).send({
-                message: 'GET request successful!!!!'
-            })
+            res.send({ username: 'os.userInfo().username' });
+            // res.status(200).sendFile('../../dist-client/index.html');
         })
         
         // Contact 
